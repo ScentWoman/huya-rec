@@ -73,6 +73,7 @@ func recOnce(room string, split time.Duration, output string) (e error) {
 
 	select {
 	case resp = <-respChan:
+		log.Println(resp.Location())
 	case <-time.Tick(5 * time.Second):
 		log.Println("Failed to establish connection in 5 seconds...")
 		return
