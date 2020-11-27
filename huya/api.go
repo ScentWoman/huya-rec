@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"html"
+	"log"
 	"regexp"
 	"strings"
 	"time"
@@ -23,6 +24,7 @@ type StreamAPI struct {
 	Status int       `json:"status"`
 	Msg    string    `json:"msg"`
 	Data   []InfoAPI `json:"data"`
+	Tags   []Tag     `json:"vMultiStreamInfo"`
 }
 
 // InfoAPI from hyPlayerConfig.stream.data .
@@ -32,6 +34,11 @@ type InfoAPI struct {
 		Room string `json:"roomName"`
 	} `json:"gameLiveInfo"`
 	StreamList []Stream `json:"gameStreamInfoList"`
+}
+
+// Tag ...
+type Tag struct {
+	Name string `json:"sDisplayName"`
 }
 
 // Stream ...
@@ -93,6 +100,12 @@ func GetInfo(u string) (i Info, e error) {
 	for _, v := range data.StreamList {
 		i.Stream = append(i.Stream, genStreamURL(v))
 	}
+
+	tag := "Tags:"
+	for k := range si.Tags {
+		tag = tag + " " + si.Tags[k].Name
+	}
+	log.Println(tag)
 
 	return
 }
