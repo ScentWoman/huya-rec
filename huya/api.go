@@ -155,9 +155,9 @@ func genStreamURL(s Stream) string {
 	_, _ = sb.WriteString(s.PSuffix)
 	_, _ = sb.WriteString("?")
 	_, _ = sb.WriteString(html.UnescapeString(s.PAntiCode))
-	_, _ = sb.WriteString("&ex1=0&baseIndex=6064712429423754&baseSubs=8&sub=0,1,2,3,4,5,6,7&maxSeq=6064712429423761&maxSeqTime=08:00:10.724&timeStamp")
+	_, _ = sb.WriteString("&ex1=0&baseIndex=0&quickTime=2000&timeStamp=")
 	_, _ = sb.WriteString(time.Now().Format("2006-01-02_15:04:05.000"))
-	_, _ = sb.WriteString("&u=2812717764&t=100&sv=2011091535")
+	_, _ = sb.WriteString("&u=0&t=100&sv=2011191002")
 
 	return sb.String()
 }
