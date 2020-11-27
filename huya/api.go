@@ -47,6 +47,9 @@ type Stream struct {
 	URL       string `json:"sFlvUrl"`
 	Suffix    string `json:"sFlvUrlSuffix"`
 	AntiCode  string `json:"sFlvAntiCode"`
+	HURL      string `json:"sHlsUrl"`
+	HSuffix   string `json:"sHlsUrlSuffix"`
+	HAntiCode string `json:"sHlsAntiCode"`
 	PURL      string `json:"sP2pUrl"`
 	PSuffix   string `json:"sP2pUrlSuffix"`
 	PAntiCode string `json:"newCFlvAntiCode"`
@@ -158,6 +161,23 @@ func genStreamURL(s Stream) string {
 	_, _ = sb.WriteString("&ex1=0&baseIndex=0&quickTime=2000&timeStamp=")
 	_, _ = sb.WriteString(time.Now().Format("2006-01-02_15:04:05.000"))
 	_, _ = sb.WriteString("&u=0&t=100&sv=2011191002")
+
+	tsb := strings.Builder{}
+	s.HURL = strings.TrimPrefix(s.HURL, "http://")
+	s.HURL = strings.TrimPrefix(s.HURL, "https://")
+
+	_, _ = tsb.WriteString("https://")
+	_, _ = tsb.WriteString(s.HURL)
+	_, _ = tsb.WriteString("/")
+	_, _ = tsb.WriteString(s.Name)
+	_, _ = tsb.WriteString(".")
+	_, _ = tsb.WriteString(s.HSuffix)
+	_, _ = tsb.WriteString("?")
+	_, _ = tsb.WriteString(html.UnescapeString(s.HAntiCode))
+	_, _ = tsb.WriteString("&ex1=0&baseIndex=0&quickTime=2000&timeStamp=")
+	_, _ = tsb.WriteString(time.Now().Format("2006-01-02_15:04:05.000"))
+	_, _ = tsb.WriteString("&u=0&t=100&sv=2011191002")
+	log.Println(tsb.String())
 
 	return sb.String()
 }
