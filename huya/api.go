@@ -151,7 +151,7 @@ func genStreamURL(s Stream) string {
 	_, _ = sb.WriteString(s.PURL)
 	_, _ = sb.WriteString("/")
 	_, _ = sb.WriteString(s.Name)
-	_, _ = sb.WriteString(".")
+	_, _ = sb.WriteString("_0_0_66.")
 	_, _ = sb.WriteString(s.PSuffix)
 	_, _ = sb.WriteString("?")
 	_, _ = sb.WriteString(html.UnescapeString(s.PAntiCode))
