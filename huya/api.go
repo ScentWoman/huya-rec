@@ -43,10 +43,13 @@ type Tag struct {
 
 // Stream ...
 type Stream struct {
-	Name     string `json:"sStreamName"`
-	URL      string `json:"sFlvUrl"`
-	Suffix   string `json:"sFlvUrlSuffix"`
-	AntiCode string `json:"sFlvAntiCode"`
+	Name      string `json:"sStreamName"`
+	URL       string `json:"sFlvUrl"`
+	Suffix    string `json:"sFlvUrlSuffix"`
+	AntiCode  string `json:"sFlvAntiCode"`
+	PURL      string `json:"sP2pUrl"`
+	PSuffix   string `json:"sP2pUrlSuffix"`
+	PAntiCode string `json:"newCFlvAntiCode"`
 }
 
 var (
@@ -126,17 +129,32 @@ func trimStream(s string) string {
 // sFlvUrl + "/" + sStreamName + "." + sFlvUrlSuffix + "?" + sFlvAntiCode + "&ex1=0&baseIndex=0&quickTime=2000&timeStamp="+ {2020-11-27_13:38:59.307} + "&u=0&t=100&sv=2011191002"
 func genStreamURL(s Stream) string {
 	sb := strings.Builder{}
-	s.URL = strings.TrimPrefix(s.URL, "http://")
-	s.URL = strings.TrimPrefix(s.URL, "https://")
+	// s.URL = strings.TrimPrefix(s.URL, "http://")
+	// s.URL = strings.TrimPrefix(s.URL, "https://")
+
+	// _, _ = sb.WriteString("https://")
+	// _, _ = sb.WriteString(s.URL)
+	// _, _ = sb.WriteString("/")
+	// _, _ = sb.WriteString(s.Name)
+	// _, _ = sb.WriteString(".")
+	// _, _ = sb.WriteString(s.Suffix)
+	// _, _ = sb.WriteString("?")
+	// _, _ = sb.WriteString(html.UnescapeString(s.AntiCode))
+	// _, _ = sb.WriteString("&ex1=0&baseIndex=0&quickTime=2000&timeStamp=")
+	// _, _ = sb.WriteString(time.Now().Format("2006-01-02_15:04:05.000"))
+	// _, _ = sb.WriteString("&u=0&t=100&sv=2011191002")
+
+	s.URL = strings.TrimPrefix(s.PURL, "http://")
+	s.URL = strings.TrimPrefix(s.PURL, "https://")
 
 	_, _ = sb.WriteString("https://")
-	_, _ = sb.WriteString(s.URL)
+	_, _ = sb.WriteString(s.PURL)
 	_, _ = sb.WriteString("/")
 	_, _ = sb.WriteString(s.Name)
 	_, _ = sb.WriteString(".")
-	_, _ = sb.WriteString(s.Suffix)
+	_, _ = sb.WriteString(s.PSuffix)
 	_, _ = sb.WriteString("?")
-	_, _ = sb.WriteString(html.UnescapeString(s.AntiCode))
+	_, _ = sb.WriteString(html.UnescapeString(s.PAntiCode))
 	_, _ = sb.WriteString("&ex1=0&baseIndex=0&quickTime=2000&timeStamp=")
 	_, _ = sb.WriteString(time.Now().Format("2006-01-02_15:04:05.000"))
 	_, _ = sb.WriteString("&u=0&t=100&sv=2011191002")
