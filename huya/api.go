@@ -144,8 +144,8 @@ func genStreamURL(s Stream) string {
 	// _, _ = sb.WriteString(time.Now().Format("2006-01-02_15:04:05.000"))
 	// _, _ = sb.WriteString("&u=0&t=100&sv=2011191002")
 
-	s.URL = strings.TrimPrefix(s.PURL, "http://")
-	s.URL = strings.TrimPrefix(s.PURL, "https://")
+	s.PURL = strings.TrimPrefix(s.PURL, "http://")
+	s.PURL = strings.TrimPrefix(s.PURL, "https://")
 
 	_, _ = sb.WriteString("https://")
 	_, _ = sb.WriteString(s.PURL)
