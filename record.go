@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"github.com/ScentWoman/huya-rec/huya"
@@ -52,6 +53,10 @@ func recOnce(room string, split time.Duration, output string) (e error) {
 				}
 			}()
 
+			if !strings.Contains(u, "al.flv.huya.com") {
+				return
+			}
+
 			req, e := http.NewRequestWithContext(ctx, "GET", u, nil)
 			if e != nil {
 				panic(e)
@@ -73,7 +78,6 @@ func recOnce(room string, split time.Duration, output string) (e error) {
 
 	select {
 	case resp = <-respChan:
-		log.Println(resp.Location())
 	case <-time.Tick(5 * time.Second):
 		log.Println("Failed to establish connection in 5 seconds...")
 		return
