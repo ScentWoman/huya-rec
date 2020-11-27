@@ -10,6 +10,7 @@ import (
 
 var (
 	room  = flag.String("room", "", "live room url")
+	src   = flag.String("src", "al", "source CDN")
 	retry = flag.Int("retry", 5, "retry interval in second")
 	split = flag.Int("split", 1, "split interval in hour")
 	out   = flag.String("o", "", "output path")
@@ -24,5 +25,5 @@ func init() {
 }
 
 func main() {
-	rec.Record(*room, time.Duration(*split)*time.Hour, time.Duration(*retry)*time.Second, *out)
+	rec.Record(*room, *src, time.Duration(*split)*time.Hour, time.Duration(*retry)*time.Second, *out)
 }

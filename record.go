@@ -18,9 +18,9 @@ var (
 )
 
 // Record ...
-func Record(room string, split, retry time.Duration, output string) {
+func Record(room, src string, split, retry time.Duration, output string) {
 	for {
-		e := recOnce(room, split, output)
+		e := recOnce(room, src, split, output)
 		if e != nil {
 			log.Println(e)
 		}
@@ -28,7 +28,7 @@ func Record(room string, split, retry time.Duration, output string) {
 	}
 }
 
-func recOnce(room string, split time.Duration, output string) (e error) {
+func recOnce(room, src string, split time.Duration, output string) (e error) {
 	info, e := huya.GetInfo(room)
 	if e != nil {
 		return
@@ -53,7 +53,7 @@ func recOnce(room string, split time.Duration, output string) (e error) {
 				}
 			}()
 
-			if !strings.Contains(u, "al.flv.huya.com") {
+			if !strings.Contains(u, src+".flv.huya.com") {
 				return
 			}
 

@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"html"
-	"log"
 	"regexp"
 	"strings"
 	"time"
@@ -107,11 +106,11 @@ func GetInfo(u string) (i Info, e error) {
 		i.Stream = append(i.Stream, genStreamURL(v))
 	}
 
-	tag := "Tags:"
-	for k := range si.Tags {
-		tag = tag + " " + si.Tags[k].Name
-	}
-	log.Println(tag)
+	// tag := "Tags:"
+	// for k := range si.Tags {
+	// 	tag = tag + " " + si.Tags[k].Name
+	// }
+	// log.Println(tag)
 
 	return
 }
