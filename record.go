@@ -66,7 +66,7 @@ func recOnce(room string, split time.Duration, output string) (e error) {
 			select {
 			case respChan <- resp:
 			default:
-				return
+				resp.Body.Close()
 			}
 		}(v)
 	}
