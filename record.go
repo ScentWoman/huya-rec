@@ -20,7 +20,7 @@ var (
 // Record ...
 func Record(room, src string, split, retry time.Duration, output string) {
 	for {
-		e := recOnce(room, src, retry, split, output)
+		e := recOnce(room, src, split, retry, output)
 		if e != nil {
 			log.Println(e)
 		}
