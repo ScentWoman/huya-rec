@@ -20,20 +20,20 @@ var (
 // Record ...
 func Record(room, src string, split, retry time.Duration, output string) {
 	for {
-		e := recOnce(room, src, split, output)
+		e := recOnce(room, src, retry, split, output)
 		if e != nil {
 			log.Println(e)
 		}
-		time.Sleep(retry)
 	}
 }
 
-func recOnce(room, src string, split time.Duration, output string) (e error) {
+func recOnce(room, src string, split, retry time.Duration, output string) (e error) {
 	info, e := huya.GetInfo(room)
 	if e != nil {
 		return
 	}
 	if !info.On {
+		time.Sleep(retry)
 		return
 	}
 
@@ -85,7 +85,7 @@ func recOnce(room, src string, split time.Duration, output string) (e error) {
 
 	defer resp.Body.Close()
 
-	fw, e := os.Create(filepath.Join(output, legalFilename(info.Title+"_"+time.Now().Format("15_04_05"))+".flv"))
+	fw, e := os.Create(filepath.Join(output, legalFilename(time.Now().Format("[15-04-05]"))+info.Title+".flv"))
 	if e != nil {
 		return
 	}
